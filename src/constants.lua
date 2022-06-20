@@ -3,7 +3,10 @@ WINDOW_HEIGHT = 720
 
 -- size we're trying to emulate with push
 VIRTUAL_WIDTH = 256
-VIRTUAL_HEIGHT = 144
+VIRTUAL_HEIGHT = 144 
+
+PLAYERSCORE_STORE = 0
+LEVEL = 1
 
 -- global standard tile size
 TILE_SIZE = 16

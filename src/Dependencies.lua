@@ -61,14 +61,13 @@ gTextures = {
     ['backgrounds'] = love.graphics.newImage('graphics/backgrounds.png'),
     ['green-alien'] = love.graphics.newImage('graphics/green_alien.png'),
     ['nezuko'] = love.graphics.newImage('graphics/nezuko_1.png'),
-    ['creatures'] = love.graphics.newImage('graphics/creatures.png')
+    ['creatures'] = love.graphics.newImage('graphics/creatures.png'),
+    ['flag'] = love.graphics.newImage('graphics/flag.png')
 }
 
 gFrames = {
     ['tiles'] = GenerateQuads1(gTextures['tiles'], TILE_SIZE, TILE_SIZE),
-    
     ['toppers'] = GenerateQuads1(gTextures['toppers'], TILE_SIZE, TILE_SIZE),
-    
     ['bushes'] = GenerateQuads1(gTextures['bushes'], 16, 16),
     ['jump-blocks'] = GenerateQuads1(gTextures['jump-blocks'], 16, 16),
     ['gems'] = GenerateQuads1(gTextures['gems'], 16, 16),

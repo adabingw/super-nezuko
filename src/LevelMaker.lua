@@ -2,6 +2,16 @@ LevelMaker = Class{}
 
 function LevelMaker.generate(width, height)
     -- tables
+
+    local EMPTYGROUND = 0
+    local SOLIDGROUND = 1
+    local SHORTPILLAR = 2
+    local TALLPILLAR = 3
+    local FLOATINGBLOCK = 4
+
+    local abyss_length = 0
+    
+    local id = 1
     local tiles = {}
     local entities = {}
     local objects = {}
@@ -32,14 +42,22 @@ function LevelMaker.generate(width, height)
                 Tile(x, y, tileID, nil, tileset, topperset))
         end
 
+        -- print(abyss_length)
+
         -- chance to just be emptiness
-        if math.random(7) == 1 and x ~= 1 then
+        if math.random(7) == 1 and x ~= 1 and id ~= FLOATINGBLOCK and abyss_length < 3 then
+            -- print("in")
+            id = EMPTYGROUND
+            abyss_length = abyss_length + 1
+
             for y = 7, height do
                 table.insert(tiles[y],
                     Tile(x, y, tileID, nil, tileset, topperset))
             end
         else
             tileID = TILE_ID_GROUND
+            id = SOLIDGROUND
+            abyss_length = 0
 
             -- height at which we would spawn a potential jump block
             local blockHeight = 4
@@ -52,6 +70,7 @@ function LevelMaker.generate(width, height)
             -- chance to generate a pillar
             if math.random(8) == 1 then
                 blockHeight = 2
+                id = SHORTPILLAR
                 
                 -- chance to generate bush on pillar
                 if math.random(8) == 1 then
@@ -89,9 +108,9 @@ function LevelMaker.generate(width, height)
                     }
                 )
             
-            -- chance to generate bushes
-            elseif math.random(8) == 1 then
+            elseif math.random(8) == 1 and id ~= EMPTYGROUND then
                 blockHeight = 0
+                id = FLOATINGBLOCK
                 
                 -- chance to generate bush on pillar
                 if math.random(8) == 1 then
@@ -119,6 +138,7 @@ function LevelMaker.generate(width, height)
             
             elseif math.random(8) == 1 then
                 blockHeight = 0
+                id = TALLPILLAR
                 
                 -- chance to generate bush on pillar
                 if math.random(8) == 1 then
@@ -209,6 +229,14 @@ function LevelMaker.generate(width, height)
                 )
             end
         end
+
+        if x == TILE_SIZE * width - 15 then 
+            print(width)
+            print(x)
+            print(TILE_SIZE * width - 15)
+            love.graphics.draw(gTextures['flag'], x, 7)
+        end
+
     end
 
     local map = TileMap(width, height)

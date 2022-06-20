@@ -2,6 +2,7 @@ TileMap = Class{}
 
 function TileMap:init(width, height)
     self.width = width
+    print("AAAAAA" ..width)
     self.height = height
     self.tiles = {}
 end
@@ -23,7 +24,7 @@ function TileMap:pointToTile(x, y)
     end
     
     return self.tiles[math.floor(y / TILE_SIZE) + 1][math.floor(x / TILE_SIZE) + 1]
-end
+end 
 
 function TileMap:render()
     for y = 1, self.height do

@@ -21,7 +21,7 @@ function PlayerIdleState:update(dt)
     end
 
     if love.keyboard.wasPressed('space') then
-        self.player:changeState('attack')
+        self.player:changeState('attack') 
     end
 
     -- check if we've collided with any entities and die if so

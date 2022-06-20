@@ -4,10 +4,22 @@ function PlayerAttackState:init(player)
     self.player = player
     local hitboxX, hitboxY, hitboxWidth, hitboxHeight
 
-    hitboxWidth = 8
-    hitboxHeight = 15
-    hitboxX = self.player.x - hitboxWidth
-    hitboxY = self.player.y + 2
+    -- hitboxWidth = 20
+    -- hitboxHeight = 35
+    -- hitboxX = self.player.x - hitboxWidth
+    -- hitboxY = self.player.y + 2
+
+    if self.player.direction == 'left' then
+        hitboxWidth = 15
+        hitboxHeight = 16
+        hitboxX = self.player.x - hitboxWidth
+        hitboxY = self.player.y + 2
+    elseif self.player.direction == 'right' then
+        hitboxWidth = 15
+        hitboxHeight = 16
+        hitboxX = self.player.x + self.player.width
+        hitboxY = self.player.y + 2
+    end
 
     -- separate hitbox for the player's sword; will only be active during this state
     self.swordHitbox = Hitbox(hitboxX, hitboxY, hitboxWidth, hitboxHeight)
@@ -33,7 +45,7 @@ function PlayerAttackState:update(dt)
             gSounds['kill2']:play()
             self.player.score = self.player.score + 100
             table.remove(self.player.level.entities, k)
-        end
+        end 
     end
 
     if love.keyboard.wasPressed('space') then

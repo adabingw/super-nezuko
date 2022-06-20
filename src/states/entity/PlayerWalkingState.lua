@@ -20,7 +20,7 @@ function PlayerWalkingState:update(dt)
         local tileBottomRight = self.player.map:pointToTile(self.player.x + self.player.width - 1, self.player.y + self.player.height)
 
         -- temporarily shift player down a pixel to test for game objects beneath
-        self.player.y = self.player.y + 1
+        self.player.y = self.player.y + 1 
 
         local collidedObjects = self.player:checkObjectCollisions()
 

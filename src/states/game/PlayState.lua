@@ -8,6 +8,8 @@ function PlayState:init()
     self.background = math.random(3)
     self.backgroundX = 0
 
+    print(PLAYERSCORE_STORE)
+
     self.gravityOn = true
     self.gravityAmount = 6
 
@@ -47,6 +49,9 @@ function PlayState:update(dt)
         self.player.x = 0
     elseif self.player.x > TILE_SIZE * self.tileMap.width - self.player.width then
         self.player.x = TILE_SIZE * self.tileMap.width - self.player.width
+        PLAYERSCORE_STORE = self.player.score
+        LEVEL = LEVEL + 1
+        gStateMachine:change('play')
     end
 end
 
@@ -59,7 +64,7 @@ function PlayState:render()
     love.graphics.draw(gTextures['backgrounds'], gFrames['backgrounds'][self.background], math.floor(-self.backgroundX + 256),
         gTextures['backgrounds']:getHeight() / 3 * 2, 0, 1, -1)
     
-    -- translate the entire view of the scene to emulate a camera
+    -- translate the entire view of the scene to emulate a camera 
     love.graphics.translate(-math.floor(self.camX), -math.floor(self.camY))
     
     self.level:render()
@@ -73,6 +78,13 @@ function PlayState:render()
     love.graphics.print(tostring(self.player.score), 5, 5)
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.print(tostring(self.player.score), 4, 4)
+
+    -- render level
+    love.graphics.setFont(gFonts['medium'])
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.print(tostring("LEVEL " .. LEVEL), VIRTUAL_WIDTH / 2 - 30, 5)
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.print(tostring("LEVEL " .. LEVEL), VIRTUAL_WIDTH / 2 - 30, 4)
 end
 
 function PlayState:updateCamera()

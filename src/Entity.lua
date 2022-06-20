@@ -39,11 +39,6 @@ function Entity:collides(entity)
 end
 
 function Entity:render()
-    print(gTextures[self.texture])
-    print(gFrames[self.texture])
-    print(self.currentAnimation:getCurrentFrame())
-    print(self.texture)
-    print(gFrames[self.texture][self.currentAnimation:getCurrentFrame()])
     -- love.graphics.draw(gTextures[self.texture], gFrames[self.texture][self.currentAnimation:getCurrentFrame()],
     --     math.floor(self.x) + 8, math.floor(self.y) + 10, 0, self.direction == 'right' and 1 or -1, 1, 8, 10)
     love.graphics.draw(gFrames[self.texture][self.currentAnimation:getCurrentFrame()],
