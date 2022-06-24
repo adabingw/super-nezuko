@@ -39,7 +39,6 @@ require 'src/Tile'
 require 'src/TileMap'
 require 'src/Hitbox'
 
-
 gSounds = {
     ['jump'] = love.audio.newSource('sounds/jump.wav', 'static'),
     ['death'] = love.audio.newSource('sounds/death.wav', 'static'),
@@ -59,6 +58,7 @@ gTextures = {
     ['jump-blocks'] = love.graphics.newImage('graphics/jump_blocks.png'),
     ['gems'] = love.graphics.newImage('graphics/gems.png'),
     ['backgrounds'] = love.graphics.newImage('graphics/backgrounds.png'),
+    -- ['backgrounds'] = love.graphics.newImage('graphics/japan.jpg'),
     ['green-alien'] = love.graphics.newImage('graphics/green_alien.png'),
     ['nezuko'] = love.graphics.newImage('graphics/nezuko_1.png'),
     ['creatures'] = love.graphics.newImage('graphics/creatures.png'),

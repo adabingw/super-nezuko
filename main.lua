@@ -1,5 +1,18 @@
+-- Thank you: CS50 Introduction to Game Development
+
 love.graphics.setDefaultFilter('nearest', 'nearest')
 require 'src/Dependencies'
+
+local socket = require('socket')
+udp = socket.udp()
+udp:setsockname('*', 12345)
+udp:settimeout(0)
+
+local entity -- entity is what we'll be controlling
+local updaterate = 0.1 -- how long to wait, in seconds, before requesting an update
+
+local world = {} -- the empty world-state
+local t
 
 function love.load()
     love.graphics.setFont(gFonts['medium'])

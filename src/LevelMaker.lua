@@ -131,11 +131,7 @@ function LevelMaker.generate(width, height)
                 
                 -- pillar tiles
                 tiles[4][x] = Tile(x, 4, tileID, topper, tileset, topperset)
-                -- tiles[5][x] = Tile(x, 5, tileID, nil, tileset, topperset)
-                -- tiles[6][x] = Tile(x, 6, tileID, nil, tileset, topperset)
-                -- tiles[7][x].topper = nil
-
-            
+                
             elseif math.random(8) == 1 then
                 blockHeight = 0
                 id = TALLPILLAR
@@ -167,6 +163,8 @@ function LevelMaker.generate(width, height)
 
             -- chance to spawn a block
             if math.random(10) == 1 and blockHeight ~= 0 then
+                bumptimes = math.random(3)
+                print(bumptimes)
                 table.insert(objects,
 
                     -- jump block
@@ -179,6 +177,7 @@ function LevelMaker.generate(width, height)
 
                         -- make it a random variant
                         frame = math.random(#JUMP_BLOCKS),
+                        -- bumptimes = frame,
                         collidable = true,
                         hit = false,
                         solid = true,
@@ -186,11 +185,16 @@ function LevelMaker.generate(width, height)
                         -- collision function takes itself
                         onCollide = function(obj)
 
+                            bumptimes = bumptimes - 1
+
                             -- spawn a gem if we haven't already hit the block
-                            if not obj.hit then
+                            -- if not obj.hit then
+                            if bumptimes == 0 and not obj.hit then
 
                                 -- chance to spawn gem, not guaranteed
-                                if math.random(5) == 1 then
+                                if math.random(1) == 1 then
+
+                                    bumptimes = math.random(3)
 
                                     -- maintain reference so we can set it to nil
                                     local gem = GameObject {
@@ -221,6 +225,8 @@ function LevelMaker.generate(width, height)
                                 end
 
                                 obj.hit = true
+                            elseif obj.hit then 
+                                bumptimes = math.random(3)
                             end
 
                             gSounds['empty-block']:play()

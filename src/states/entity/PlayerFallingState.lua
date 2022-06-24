@@ -38,14 +38,25 @@ function PlayerFallingState:update(dt)
         gStateMachine:change('start')
     
     -- check side collisions and reset position
-    elseif love.keyboard.isDown('left') then
+    elseif love.keyboard.isDown('left') and self.player.playernum == 1 then
         self.player.direction = 'left'
         self.player.x = self.player.x - PLAYER_WALK_SPEED * dt
         self.player:checkLeftCollisions(dt)
-    elseif love.keyboard.isDown('right') then
+    elseif love.keyboard.isDown('right') and self.player.playernum == 1 then
         self.player.direction = 'right'
         self.player.x = self.player.x + PLAYER_WALK_SPEED * dt
         self.player:checkRightCollisions(dt)
+    elseif love.keyboard.isDown('a') and self.player.playernum == 2 then
+        self.player.direction = 'left'
+        self.player.x = self.player.x - PLAYER_WALK_SPEED * dt
+        self.player:checkLeftCollisions(dt)
+    elseif love.keyboard.isDown('d') and self.player.playernum == 2 then
+        self.player.direction = 'right'
+        self.player.x = self.player.x + PLAYER_WALK_SPEED * dt
+        self.player:checkRightCollisions(dt)
+    elseif love.keyboard.isDown('space') then 
+        PREV_STATE = 'falling'
+        self.player:changeState('attack')
     end
 
     -- check if we've collided with any collidable game objects

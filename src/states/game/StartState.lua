@@ -13,6 +13,22 @@ function StartState:update(dt)
     end
 end
 
+function saveMaxScore()
+    local saveData = require("saveData")
+    t = {}
+    t.settings = {graphics = "good"}
+    t.settings.window = {x = 10, y = 20}
+    t.save = {}
+    t.save.scene = "boss"
+
+    saveData.save(t, "test")
+
+    local t2 = saveData.load("test")
+    print(t2.settings.graphics)
+    print(t2.settings.window.x, t2.settings.window.y)
+    print(t2.save.scene)
+end
+
 function StartState:render()
     love.graphics.draw(gTextures['backgrounds'], gFrames['backgrounds'][self.background], 0, 0)
     love.graphics.draw(gTextures['backgrounds'], gFrames['backgrounds'][self.background], 0,

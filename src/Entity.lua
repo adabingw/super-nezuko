@@ -23,6 +23,8 @@ function Entity:init(def)
 
     -- reference to level for tests against other entities + objects
     self.level = def.level
+
+    self.playernum = def.playernum
 end
 
 function Entity:changeState(state, params)

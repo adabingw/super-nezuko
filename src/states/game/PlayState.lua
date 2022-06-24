@@ -15,6 +15,7 @@ function PlayState:init()
 
     self.player = Player({
         x = 0, y = 0,
+        playernum = 1,
         width = 16, height = 25,
         texture = 'nezuko',
         stateMachine = StateMachine {
@@ -28,9 +29,27 @@ function PlayState:init()
         level = self.level
     })
 
+    -- For 2 players
+    -- self.player2 = Player({
+    --     x = 0, y = 0,
+    --     playernum = 2,
+    --     width = 16, height = 25,
+    --     texture = 'nezuko',
+    --     stateMachine = StateMachine {
+    --         ['idle'] = function() return PlayerIdleState(self.player2) end,
+    --         ['walking'] = function() return PlayerWalkingState(self.player2) end,
+    --         ['jump'] = function() return PlayerJumpState(self.player2, self.gravityAmount) end,
+    --         ['falling'] = function() return PlayerFallingState(self.player2, self.gravityAmount) end,
+    --         ['attack'] = function() return PlayerAttackState(self.player2) end
+    --     },
+    --     map = self.tileMap,
+    --     level = self.level
+    -- })
+
     self:spawnEnemies()
 
     self.player:changeState('falling')
+    -- self.player2:changeState('falling')
 end
 
 function PlayState:update(dt)
@@ -41,6 +60,7 @@ function PlayState:update(dt)
 
     -- update player and level
     self.player:update(dt)
+    -- self.player2:update(dt)
     self.level:update(dt)
     self:updateCamera()
 
@@ -53,6 +73,15 @@ function PlayState:update(dt)
         LEVEL = LEVEL + 1
         gStateMachine:change('play')
     end
+
+    -- if self.player2.x <= 0 then
+    --     self.player2.x = 0
+    -- elseif self.player2.x > TILE_SIZE * self.tileMap.width - self.player2.width then
+    --     self.player2.x = TILE_SIZE * self.tileMap.width - self.player2.width
+    --     -- PLAYERSCORE_STORE = self.player2.score
+    --     -- LEVEL = LEVEL + 1
+    --     -- gStateMachine:change('play')
+    -- end
 end
 
 function PlayState:render()
@@ -70,6 +99,7 @@ function PlayState:render()
     self.level:render()
 
     self.player:render()
+    -- self.player2:render()
     love.graphics.pop()
     
     -- render score

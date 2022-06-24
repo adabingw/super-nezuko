@@ -13,7 +13,9 @@ function PlayerWalkingState:update(dt)
     self.player.currentAnimation:update(dt)
 
     -- idle if we're not pressing anything at all
-    if not love.keyboard.isDown('left') and not love.keyboard.isDown('right') then
+    if not love.keyboard.isDown('left') and not love.keyboard.isDown('right') and self.player.playernum == 1 then
+        self.player:changeState('idle')
+    elseif not love.keyboard.isDown('a') and not love.keyboard.isDown('d') and self.player.playernum == 2 then 
         self.player:changeState('idle')
     else
         local tileBottomLeft = self.player.map:pointToTile(self.player.x + 1, self.player.y + self.player.height)
@@ -30,11 +32,11 @@ function PlayerWalkingState:update(dt)
         if #collidedObjects == 0 and (tileBottomLeft and tileBottomRight) and (not tileBottomLeft:collidable() and not tileBottomRight:collidable()) then
             self.player.dy = 0
             self.player:changeState('falling')
-        elseif love.keyboard.isDown('left') then
+        elseif (love.keyboard.isDown('left') and self.player.playernum == 1) or (love.keyboard.isDown('a') and self.player.playernum == 2) then
             self.player.x = self.player.x - PLAYER_WALK_SPEED * dt
             self.player.direction = 'left'
             self.player:checkLeftCollisions(dt)
-        elseif love.keyboard.isDown('right') then
+        elseif (love.keyboard.isDown('right') and self.player.playernum == 1) or (love.keyboard.isDown('d') and self.player.playernum == 2) then
             self.player.x = self.player.x + PLAYER_WALK_SPEED * dt
             self.player.direction = 'right'
             self.player:checkRightCollisions(dt)
@@ -49,11 +51,11 @@ function PlayerWalkingState:update(dt)
         end
     end
 
-    if love.keyboard.wasPressed('up') then
+    if (love.keyboard.wasPressed('up') and self.player.playernum == 1) or (love.keyboard.wasPressed('w') and self.player.playernum == 2) then
         self.player:changeState('jump')
     end
 
-    if love.keyboard.isDown('space') then
+    if (love.keyboard.isDown('space') and self.player.playernum == 1) or (love.keyboard.wasPressed('q') and self.player.playernum == 2) then
         self.player:changeState('attack')
     end 
 end

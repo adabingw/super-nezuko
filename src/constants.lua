@@ -5,8 +5,10 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 256
 VIRTUAL_HEIGHT = 144 
 
+-- things we want to store as flags
 PLAYERSCORE_STORE = 0
 LEVEL = 1
+PREV_STATE = 'idle'
 
 -- global standard tile size
 TILE_SIZE = 16

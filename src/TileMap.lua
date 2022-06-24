@@ -2,7 +2,6 @@ TileMap = Class{}
 
 function TileMap:init(width, height)
     self.width = width
-    print("AAAAAA" ..width)
     self.height = height
     self.tiles = {}
 end

@@ -4,11 +4,6 @@ function PlayerAttackState:init(player)
     self.player = player
     local hitboxX, hitboxY, hitboxWidth, hitboxHeight
 
-    -- hitboxWidth = 20
-    -- hitboxHeight = 35
-    -- hitboxX = self.player.x - hitboxWidth
-    -- hitboxY = self.player.y + 2
-
     if self.player.direction == 'left' then
         hitboxWidth = 15
         hitboxHeight = 16
@@ -48,32 +43,33 @@ function PlayerAttackState:update(dt)
         end 
     end
 
-    if love.keyboard.wasPressed('space') then
-        self.player:changeState('jump')
+    if (love.keyboard.wasPressed('space') and self.player.playernum == 1) or (love.keyboard.wasPressed('q') and self.player.playernum == 2) then
+        self.player:changeState('attack')
     else 
-        self.player:changeState('idle')
+        self.player:changeState(PREV_STATE)
     end
 
-    if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
+    if (love.keyboard.isDown('left') or love.keyboard.isDown('right') and self.player.playernum == 1) or (love.keyboard.isDown('a') or love.keyboard.isDown('d') and self.player.playernum == 2) then
+        print('ha')
         self.player:changeState('walking')
+    -- elseif love.keyboard.isDown('a') or love.keyboard.isDown('d') and self.player.playernum == 2 then 
+    --     print('wa')
+    --     self.player:changeState('walking')
     end
 
-    if love.keyboard.wasPressed('up') then
+    if love.keyboard.wasPressed('up') and self.player.playenum == 1 then
+        self.player:changeState('jump')
+    elseif love.keyboard.wasPressed('w') and self.player.playernum == 2 then 
         self.player:changeState('jump')
     end
-
-    -- -- if we've fully elapsed through one cycle of animation, change back to idle state
-    -- if self.player.currentAnimation.timesPlayed > 0 then
-        -- self.player.currentAnimation.timesPlayed = 0
-    -- end
 
     --
     -- debug for player and hurtbox collision rects VV
     --
 
     -- love.graphics.setColor(255, 0, 255, 255)
-    love.graphics.rectangle('line', self.player.x, self.player.y, self.player.width, self.player.height)
-    love.graphics.rectangle('line', self.swordHitbox.x, self.swordHitbox.y,
-        self.swordHitbox.width, self.swordHitbox.height)
+    -- love.graphics.rectangle('line', self.player.x, self.player.y, self.player.width, self.player.height)
+    -- love.graphics.rectangle('line', self.swordHitbox.x, self.swordHitbox.y,
+    --     self.swordHitbox.width, self.swordHitbox.height)
     -- love.graphics.setColor(255, 255, 255, 255)
 end
